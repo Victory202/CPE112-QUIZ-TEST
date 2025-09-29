@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logisim & Proteus Quiz (Q29–92)</title>
+  <style>
+    /* Background animation */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(-45deg, #001f3f, #0074D9, #00c6ff, #004d73);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Quiz container */
+    .quiz-container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 { margin-bottom: 20px; }
+    .question { font-size: 1.2rem; margin-bottom: 20px; }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #00c6ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      background: #00e6ff;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    .footer a {
+      color: #00c6ff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .result { font-size: 1.3rem; margin: 20px 0; }
+    .answers { text-align: left; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Logisim & Proteus Quiz</h1>
+    <div id="quiz"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Next</button>
+    <div class="footer">
+      Designed by Victory |
+      <a href="https://wa.me/2348123456789" target="_blank">📱 WhatsApp</a>
+      <a href="https://github.com/Victory202" target="_blank">💻 GitHub</a>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {q: "29. The __________ tool is used to draw wires between components in Proteus.", a: "wire tool"},
+      {q: "30. In Logisim, the tool used to change input values during simulation is called the __________.", a: "poke tool"},
+      {q: "31. In Proteus, digital outputs are often verified using __________ indicators.", a: "leds"},
+      {q: "32. The default logic values in digital simulation are __________ for HIGH and __________ for LOW.", a: "1 for high and 0 for low"},
+      {q: "33. A truth table lists all possible __________ combinations and their corresponding __________.", a: "input combinations and their corresponding outputs"},
+      {q: "34. In digital logic, the symbol “!” or “~” in Logisim represents the __________ operation.", a: "not"},
+      {q: "35. In Logisim, the menu option used to create circuits from Boolean expressions is __________.", a: "combinational analysis"},
+      {q: "36. The shortcut key in Logisim for adding a new input pin is __________.", a: "input pin tool"},
+      {q: "37. To generate a minimized Boolean expression in Logisim, we use the __________ tool.", a: "combinational analysis"},
+      {q: "38. When creating subcircuits in Logisim, the __________ tool is used to connect inputs and outputs.", a: "pin tool"},
+      {q: "39. The clock signal in Logisim is represented by a __________ component.", a: "clock"},
+      {q: "40. In Proteus, logic circuits are tested by placing __________ at the outputs.", a: "leds"},
+      {q: "41. The Proteus feature that allows visualization of timing diagrams is the __________.", a: "logic analyzer"},
+      {q: "42. To simulate sequential circuits in Proteus, we must provide __________ pulses.", a: "clock pulses"},
+      {q: "43. If a circuit in Proteus shows no output, a common error is forgetting to connect __________.", a: "power/ground"},
+      {q: "44. Proteus allows combining __________ and __________ circuits in the same simulation.", a: "analog and digital"},
+      {q: "45. In Logisim, the __________ window is used to enter Boolean expressions.", a: "combinational analysis window"},
+      {q: "46. The __________ tab in Combinational Analysis allows you to enter truth table values directly.", a: "truth table tab"},
+      {q: "47. A circuit generated in Logisim from an expression is stored as a __________ inside the project.", a: "subcircuit"},
+      {q: "48. The __________ component in Logisim is used to generate continuous pulses.", a: "clock"},
+      {q: "49. In Logisim, output pins can be configured as either __________ or __________.", a: "active-high or active-low"},
+      {q: "50. In Proteus, a __________ is commonly used to visualize clock signals.", a: "oscilloscope"},
+      {q: "51. A digital simulation in Proteus will not run correctly unless the __________ button is clicked.", a: "run simulation"},
+      {q: "52. The __________ in Proteus is used to organize and select components.", a: "component library"},
+      {q: "53. In Proteus, seven-segment displays can be configured as either __________ or __________.", a: "common-anode or common-cathode"},
+      {q: "54. The __________ feature in Proteus helps measure delay time.", a: "logic analyzer"},
+      {q: "55. In Logisim, the __________ tool is used to place new components.", a: "component tool"},
+      {q: "56. Wires that are not properly connected in Logisim appear as small __________ dots.", a: "red"},
+      {q: "57. The __________ menu in Logisim allows exporting circuits as images.", a: "file menu"},
+      {q: "58. Logisim supports hierarchical design by allowing users to create __________ circuits.", a: "subcircuits"},
+      {q: "59. The __________ tool is used to rotate components before placing them.", a: "rotate tool"},
+      {q: "60. In Logisim, circuits can be tested interactively by toggling __________ inputs.", a: "input pins"},
+      {q: "61. A __________ pin is used to supply binary input values in Logisim.", a: "input pin"},
+      {q: "62. The __________ pin is used to view the output of a circuit in Logisim.", a: "output pin"},
+      {q: "63. The __________ library in Logisim contains flip-flops, registers, and counters.", a: "sequential library"},
+      {q: "64. A circuit can be duplicated in Logisim by selecting it and pressing __________ + C.", a: "ctrl + c"},
+      {q: "65. The “Analyze Circuit” tool is found under the __________ menu in Logisim.", a: "analyze menu"},
+      {q: "66. Logisim expressions use __________ to represent the OR operation.", a: "+"},
+      {q: "67. The __________ component in Logisim allows visualization of hexadecimal values.", a: "hex display"},
+      {q: "68. Clock frequency in Logisim can be adjusted in the __________ settings.", a: "clock properties"},
+      {q: "69. A circuit built from an expression is saved under the __________ folder.", a: "circuits folder"},
+      {q: "70. The __________ component in Logisim is used to input multi-bit binary values.", a: "binary constant"},
+      {q: "71. Logisim does not simulate __________ levels such as 5V or 12V.", a: "analog voltage levels"},
+      {q: "72. The __________ library in Logisim provides input devices like switches.", a: "wiring library"},
+      {q: "73. To view signal flow in Logisim, you can enable __________ highlighting.", a: "signal highlighting"},
+      {q: "74. The maximum number of inputs on a Logisim AND gate is __________.", a: "8"},
+      {q: "75. Logic states in Proteus are represented by __________ for HIGH and __________ for LOW.", a: "green for high and red for low"},
+      {q: "76. The __________ editor in Proteus is used to configure component properties.", a: "properties editor"},
+      {q: "77. Proteus allows testing digital designs alongside __________ controllers.", a: "microcontrollers"},
+      {q: "78. In Proteus, the digital logic family most commonly used is __________.", a: "ttl"},
+      {q: "79. The __________ component in Proteus is used to generate clock signals.", a: "clock generator"},
+      {q: "80. A __________ is used in Proteus to observe binary outputs in waveform form.", a: "logic analyzer"},
+      {q: "81. In Proteus, the command to rotate a component is __________.", a: "rotate"},
+      {q: "82. The __________ is the panel where all placed components are displayed.", a: "design workspace"},
+      {q: "83. To measure timing in Proteus, you can use the __________ cursor in the oscilloscope.", a: "time cursor"},
+      {q: "84. A seven-segment display in Proteus can be either __________ or __________.", a: "common-anode or common-cathode"},
+      {q: "85. Proteus allows saving circuits with the extension __________.", a: ".dsn"},
+      {q: "86. In Proteus, a flip-flop can be tested by connecting it to a __________ source.", a: "clock source"},
+      {q: "87. Proteus provides a __________ display to show binary or decimal outputs.", a: "digital display"},
+      {q: "88. If no simulation output is visible in Proteus, the first step is to check for __________ errors.", a: "wiring"},
+      {q: "89. The __________ tool is used to label nets and signals in Proteus.", a: "net label tool"},
+      {q: "90. To simulate digital storage, Proteus provides __________ and __________ memory models.", a: "ram and rom"},
+      {q: "91. The __________ probe in Proteus measures voltage levels on digital lines.", a: "logic probe"},
+      {q: "92. Proteus integrates both digital and __________ simulation in the same environment.", a: "analog"},
+    ];
+
+    let current = 0;
+    let score = 0;
+    let userAnswers = [];
+
+    const quizDiv = document.getElementById("quiz");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function showQuestion() {
+      if (current < questions.length) {
+        quizDiv.innerHTML = `
+          <div class="question">${questions[current].q}</div>
+          <input type="text" id="answer" placeholder="Type your answer...">
+        `;
+        nextBtn.innerText = current === questions.length - 1 ? "Submit" : "Next";
+      } else {
+        showResult();
+      }
+    }
+
+    function nextQuestion() {
+      let ans = document.getElementById("answer").value.trim().toLowerCase();
+      userAnswers.push(ans);
+      if (ans === questions[current].a.toLowerCase()) score++;
+      current++;
+      showQuestion();
+    }
+
+    function showResult() {
+      quizDiv.innerHTML = `
+        <div class="result">You scored ${score} out of ${questions.length}</div>
+        <button onclick="checkAnswers()">Check Answers</button>
+      `;
+      nextBtn.style.display = "none";
+    }
+
+    function checkAnswers() {
+      let output = "<div class='answers'><h3>Correct Answers:</h3>";
+      questions.forEach((q, i) => {
+        output += `<p>${q.q}<br>
+        Your Answer: <b>${userAnswers[i] || "No answer"}</b><br>
+        Correct Answer: <b>${q.a}</b></p>`;
+      });
+      output += "</div>";
+      quizDiv.innerHTML = output;
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
